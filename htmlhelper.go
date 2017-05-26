@@ -21,8 +21,18 @@ func Clean(input string) (output string) {
 
 	output = input
 
-	// Remove all '\r'
+	// Remove all '\r'.
 	output = strings.Replace(output, "\r", "", -1)
+
+	// Remove white spaces and line breakers after '<xx '.
+	p = `<(\S+)\s+`
+	re = regexp.MustCompile(p)
+	output = re.ReplaceAllString(output, "<$1 ")
+
+	// Remove white spaces and link breakers before '>'.
+	p = `\s+>`
+	re = regexp.MustCompile(p)
+	output = re.ReplaceAllString(output, ">")
 
 	// Remove blank lines.
 	p = `\s+\n\s+`
