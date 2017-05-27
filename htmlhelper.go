@@ -35,7 +35,7 @@ func Clean(input string) (output string) {
 	output = re.ReplaceAllString(output, ">")
 
 	// Remove blank lines.
-	p = `\s+\n\s+`
+	p = `\s*\n\s*`
 	re = regexp.MustCompile(p)
 	output = re.ReplaceAllString(output, "")
 
@@ -53,11 +53,14 @@ func Clean(input string) (output string) {
 }
 
 /*
-func ParseTable(htmlStr string) (t Table) {
+func getTable(htmlStr string) (t Table) {
 }
 
-func ParseTables(htmlStr string) (tables []Table) {
+func GetTables(htmlStr string) (tables []Table) {
+	var p = `<table.*`
+	var re *regexp.Regexp
+
+	str := Clean(htmlStr)
 
 }
-
 */
