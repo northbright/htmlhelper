@@ -7,25 +7,7 @@ import (
 )
 
 func ExampleClean() {
-	str := htmlhelper.Clean(str1)
-	fmt.Printf("cleaned HTML: %v\n", str)
-
-	// Output:
-	//cleaned HTML: </td><td class="tint"><a href="">fake link</a>
-}
-
-func ExampleTablesToCSVs() {
-	csvs := htmlhelper.TablesToCSVs(str2)
-	for i, csv := range csvs {
-		fmt.Printf("%v: %v\n", i, csv)
-	}
-
-	// Output:
-	//0: [[Song Name Artist Album] [squall Pasteboard glitter] [Recollection GIN MaHaLo]]
-	//1: [[Song Name Artist Album] [I Feel Love Mystic Diversions Beneath Another Sky] [紫陽花 GIN MaHaLo]]
-}
-
-var str1 = `
+	var str = `
 </td>
                             <td 
                                 class="tint"
@@ -39,7 +21,15 @@ var str1 = `
 </a>
 `
 
-var str2 = `
+	str = htmlhelper.Clean(str)
+	fmt.Printf("cleaned HTML: %v\n", str)
+
+	// Output:
+	//cleaned HTML: </td><td class="tint"><a href="">fake link</a>
+}
+
+func ExampleTablesToCSVs() {
+	var str = `
 h1 id="playlist-1">Playlist 1</h1>
 
 <table>
@@ -85,3 +75,12 @@ h1 id="playlist-1">Playlist 1</h1>
 </tr>
 </tbody></table>
 `
+	csvs := htmlhelper.TablesToCSVs(str)
+	for i, csv := range csvs {
+		fmt.Printf("%v: %v\n", i, csv)
+	}
+
+	// Output:
+	//0: [[Song Name Artist Album] [squall Pasteboard glitter] [Recollection GIN MaHaLo]]
+	//1: [[Song Name Artist Album] [I Feel Love Mystic Diversions Beneath Another Sky] [紫陽花 GIN MaHaLo]]
+}
