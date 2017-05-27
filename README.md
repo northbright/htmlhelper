@@ -7,7 +7,7 @@
 htmlhelper is a [Golang](https://golang.org) package which provides helper functions for HTML string operations.
 
 #### Features
-* Clean HTML string.
+* [Clean HTML string](https://godoc.org/github.com/northbright/htmlhelper#ex-Clean).
         
         var str = `
         </td>
@@ -29,7 +29,7 @@ htmlhelper is a [Golang](https://golang.org) package which provides helper funct
         // Output:
         //cleaned HTML: </td><td class="tint"><a href="">fake link</a>
 
-* Convert HTML Tables into CSV Records.
+* [Convert HTML Tables into CSV Records](https://godoc.org/github.com/northbright/htmlhelper#ex-TablesToCSVs).
 
         var str = `<table>.......</table>
                    .....<table>....</table>`
