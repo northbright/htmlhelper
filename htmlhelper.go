@@ -1,18 +1,9 @@
 package htmlhelper
 
 import (
-	//"fmt"
 	"regexp"
 	"strings"
 )
-
-type Row struct {
-	Columns []string
-}
-
-type Table struct {
-	Rows []Row
-}
 
 // Clean removes white spaces, blank lines and line breakers to clean input HTML string.
 func Clean(input string) (output string) {
@@ -52,15 +43,94 @@ func Clean(input string) (output string) {
 	return output
 }
 
-/*
-func getTable(htmlStr string) (t Table) {
+func getColumns(htmlStr string, isHead bool) (columns []string) {
+	p := ``
+
+	if isHead {
+		p = `<th.*?>(.*?)</th>`
+	} else {
+		p = `<td.*?>(.*?)</td>`
+	}
+
+	re := regexp.MustCompile(p)
+	matched := re.FindAllStringSubmatch(htmlStr, -1)
+
+	for _, m := range matched {
+		columns = append(columns, m[1])
+	}
+
+	return columns
 }
 
-func GetTables(htmlStr string) (tables []Table) {
-	var p = `<table.*`
-	var re *regexp.Regexp
+func getRows(htmlStr string) (rows []string) {
+	p := `<tr.*?>(.*?)</tr>`
+	re := regexp.MustCompile(p)
+	matched := re.FindAllStringSubmatch(htmlStr, -1)
 
+	for _, m := range matched {
+		rows = append(rows, m[1])
+	}
+
+	return rows
+}
+
+func getTableHead(htmlStr string) (headStr string) {
+	p := `<thead.*?>(.*?)</thead>`
+	re := regexp.MustCompile(p)
+	matched := re.FindStringSubmatch(htmlStr)
+	if len(matched) != 2 {
+		return ""
+	}
+	return matched[1]
+}
+
+func getTableBody(htmlStr string) (bodyStr string) {
+	p := `<tbody.*?>(.*?)</tbody>`
+	re := regexp.MustCompile(p)
+	matched := re.FindStringSubmatch(htmlStr)
+	if len(matched) != 2 {
+		return ""
+	}
+	return matched[1]
+}
+
+func getTables(htmlStr string) (tables []string) {
+	p := `<table.*?>(.*?)</table>`
+	re := regexp.MustCompile(p)
+	matched := re.FindAllStringSubmatch(htmlStr, -1)
+
+	for _, m := range matched {
+		tables = append(tables, m[1])
+	}
+
+	return tables
+}
+
+// TablesToCSVs finds all tables in HTML string and converts each table to CSV records.
+//
+// Params:
+//     htmlStr: input HTML string.
+// Return:
+//     csvs: slice contains CSV records.
+//           See https://godoc.org/encoding/csv for more info.
+func TablesToCSVs(htmlStr string) (csvs [][][]string) {
 	str := Clean(htmlStr)
 
+	for _, t := range getTables(str) {
+		records := [][]string{}
+
+		head := getTableHead(t)
+		for _, r := range getRows(head) {
+			records = append(records, getColumns(r, true))
+		}
+
+		body := getTableBody(t)
+		for _, r := range getRows(body) {
+			records = append(records, getColumns(r, false))
+		}
+
+		csvs = append(csvs, records)
+	}
+
+	return csvs
 }
-*/
