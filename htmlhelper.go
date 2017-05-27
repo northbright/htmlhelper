@@ -120,11 +120,18 @@ func TablesToCSVs(htmlStr string) (csvs [][][]string) {
 		records := [][]string{}
 
 		head := getTableHead(t)
-		for _, r := range getRows(head) {
-			records = append(records, getColumns(r, true))
+		body := ""
+
+		// Table has <thead> and <tbody>.
+		if len(head) != 0 {
+			for _, r := range getRows(head) {
+				records = append(records, getColumns(r, true))
+			}
+			body = getTableBody(t)
+		} else {
+			body = t
 		}
 
-		body := getTableBody(t)
 		for _, r := range getRows(body) {
 			records = append(records, getColumns(r, false))
 		}

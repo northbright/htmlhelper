@@ -56,14 +56,13 @@ h1 id="playlist-1">Playlist 1</h1>
 <h1 id="playlist-2">Playlist 2</h1>
 
 <table>
-<thead>
 <tr>
-  <th align="left">Song Name</th>
-  <th align="left">Artist</th>
-  <th>Album</th>
+  <td align="left">Song Name</td>
+  <td align="left">Artist</td>
+  <td>Album</td>
 </tr>
 </thead>
-<tbody><tr>
+<tr>
   <td align="left">I Feel Love</td>
   <td align="left">Mystic Diversions</td>
   <td>Beneath Another Sky</td>
@@ -73,7 +72,7 @@ h1 id="playlist-1">Playlist 1</h1>
   <td align="left">GIN</td>
   <td>MaHaLo</td>
 </tr>
-</tbody></table>
+</table>
 `
 	csvs := htmlhelper.TablesToCSVs(str)
 	for i, csv := range csvs {
