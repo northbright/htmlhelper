@@ -61,7 +61,6 @@ h1 id="playlist-1">Playlist 1</h1>
   <td align="left">Artist</td>
   <td>Album</td>
 </tr>
-</thead>
 <tr>
   <td align="left">I Feel Love</td>
   <td align="left">Mystic Diversions</td>
