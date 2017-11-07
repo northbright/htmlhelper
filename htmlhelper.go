@@ -40,6 +40,18 @@ func Clean(input string) (output string) {
 	re = regexp.MustCompile(p)
 	output = re.ReplaceAllString(output, "<")
 
+	// Make sure all table tags are lower cases
+	tagsMap := map[string]string{
+		"TABLE": "table",
+		"TH":    "th",
+		"TR":    "tr",
+		"TD":    "td",
+		"TBODY": "tbody",
+	}
+	for k, v := range tagsMap {
+		output = strings.Replace(output, k, v, -1)
+	}
+
 	return output
 }
 
