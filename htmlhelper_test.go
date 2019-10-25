@@ -28,6 +28,26 @@ func ExampleClean() {
 	//cleaned HTML: </td><td class="tint"><a href="">fake link</a>
 }
 
+func ExampleRemoveAllElements() {
+	str := `
+<a href="###" onclick="">My Link</a>
+
+<img src="./01.jpg">
+
+<script type="text/javascript">
+function Test(){
+	var image = new Image();
+}
+</script>
+`
+
+	str = htmlhelper.RemoveAllElements(str)
+	fmt.Printf("Removed all elements: %v\n", str)
+
+	// Output:
+	//Removed all elements:
+}
+
 func ExampleTablesToCSVs() {
 	var str = `
 h1 id="playlist-1">Playlist 1</h1>

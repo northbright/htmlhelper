@@ -55,6 +55,13 @@ func Clean(input string) (output string) {
 	return output
 }
 
+//  RemoveAllElements removes all HTML elements in the input HTML string.
+func RemoveAllElements(input string) (output string) {
+	p := `<.*>`
+	re := regexp.MustCompile(p)
+	return re.ReplaceAllString(Clean(input), "")
+}
+
 func getColumns(htmlStr string, isHead bool) (columns []string) {
 	p := ``
 
